@@ -2,18 +2,26 @@ fetch("https://jsonplaceholder.typicode.com/todos")
   .then(e => e.json())
   .then(coming => renderList(coming));
 
-// remove
+// state
 var ol = document.querySelector("ol");
 ol.addEventListener("click", removeIt);
+
+var form = document.querySelector("form");
+form.addEventListener("submit", addList);
+
+var search = document.getElementById("search");
+search.addEventListener("keyup", searchList);
+
+
+//remove
 function removeIt(e) {
   if (e.target.classList.contains("button")) {
     var li = e.target.parentElement;
     ol.removeChild(li);
   }
 }
+
 //add
-var form = document.querySelector("form");
-form.addEventListener("submit", addList);
 function addList(e) {
   e.preventDefault();
   var newItem = document.getElementById("list").value;
@@ -27,8 +35,6 @@ function addList(e) {
 }
 
 //search
-var search = document.getElementById("search");
-search.addEventListener("keyup", searchList);
 function searchList(e) {
   // text without any special chars and lowercased
   var text = e.target.value.replace(/\W/g, "").toLowerCase();
